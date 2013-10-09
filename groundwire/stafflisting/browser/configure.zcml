@@ -1,0 +1,39 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="groundwire.stafflisting">
+
+  <include package="plone.app.contentmenu" />
+
+  <browser:page
+      for="Products.ATContentTypes.interfaces.IATTopic"
+      name="stafflisting_view"
+      class=".stafflisting.StaffListingTopicView"
+      template="stafflisting.pt"
+      menu="plone_displayviews"
+      title="Staff/Board Listing"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="Products.ATContentTypes.interfaces.IATFolder"
+      name="stafflisting_view"
+      class=".stafflisting.StaffListingFolderView"
+      template="stafflisting.pt"
+      menu="plone_displayviews"
+      title="Staff/Board Listing"
+      permission="zope2.View"
+      />
+
+ <browser:resource
+    name="stafflisting.css"
+    file="stafflisting.css"
+    />
+    <browser:page
+        for="*"
+        name="fix-dexterity-types"
+        class=".fixdexteritytypes.FixDexterityTypes"
+        permission="cmf.ManagePortal"
+        />
+
+</configure>

@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+<body>
+
+<metal:content-core fill-slot="content-core">
+    <metal:block define-macro="content-core">
+
+        <div class="newsImageContainer"
+             tal:define="image context/image"
+             tal:condition="nocall:image">
+            <img tal:define="scale context/@@images"
+                 tal:replace="structure python: scale.scale('image',
+                                   scale='mini').tag()" />
+        </div>
+
+        <h3 tal:condition="context/position"
+            tal:content="context/position"
+            class="role">Executive Director</h3>
+        <ul class="contact-info discreet">
+            <li tal:condition="context/phone" class="first">
+                <span class="field-label">phone:</span>
+                <span class="field-value tel"
+                    tal:content="context/phone">206.286.1235 x12</span>
+            </li>
+            <li tal:condition="context/email">
+                <span class="field-label">email:</span>
+                <span class="field-value">
+                    <span tal:replace="structure python:here.spamProtect(context.email)" />
+                </span>
+            </li>
+            <li tal:condition="context/twitter">
+                <span class="field-label">twitter:</span>
+                <span class="field-value">
+                    <a tal:attributes="href string:http://twitter.com/${context/twitter}"
+                       tal:content="string:@${context/twitter}">@dinkeyking</a>
+                </span>
+            </li>
+            <li tal:condition="context/skype">
+                <span class="field-label">skype:</span>
+                <span class="field-value"
+                    tal:content="context/skype">guynoir</span>
+            </li>
+            <li tal:condition="context/blog">
+                <span class="field-value">
+                    <a tal:attributes="href context/blog">blog</a>
+                </span>
+            </li>
+            <li tal:condition="context/other_contact">
+                <span class="field-value"
+                    tal:content="context/other_contact">Other contact info
+                </span>
+            </li>
+        </ul>
+
+        <div tal:define="text context/text/output|nothing"
+            tal:condition="text"
+            tal:content="structure text" />
+            
+        <tal:belowcontent metal:define-slot="person_belowcontent" />
+
+    </metal:block>
+</metal:content-core>
+
+</body>
+</html>
+
